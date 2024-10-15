@@ -11,9 +11,9 @@ def parse_translation_pairs(input_data):
         list of tuples: List containing language keys and translations, e.g., [("en", "table"), ("de", "der Tisch")]
     """
     translation_pairs = []
-    pairs = input_data.split('\n') if input_data else []
+    pairs = input_data.split("\n") if input_data else []
     for pair in pairs:
-        lang_key, word = pair.split(':')
+        lang_key, word = pair.split(":")
         translation_pairs.append((lang_key.strip(), word.strip()))
     return translation_pairs
 

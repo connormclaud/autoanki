@@ -5,7 +5,7 @@ def generate_org_mode_file(translation_pairs, output_file):
         translation_pairs (list of tuples): List of translation pairs.
         output_file (str): Path to the output org-mode file.
     """
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         for lang_key, word in translation_pairs:
             f.write(f"* {lang_key}: {word}\n")
             f.write(f":PROPERTIES:\n:ANKI_NOTE_TYPE: Basic\n:END:\n")

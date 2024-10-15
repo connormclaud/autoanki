@@ -9,7 +9,7 @@ def test_generate_org_mode_file():
         ("en", "table"),
         ("de", "der Tisch"),
         ("en", "chair"),
-        ("de", "der Stuhl")
+        ("de", "der Stuhl"),
     ]
     expected_output = """
 * en: table
@@ -48,7 +48,7 @@ der Stuhl
 
     # Assert that the mock file was written with the expected content
     mock().write.assert_called()
-    written_content = ''.join(call[0][0] for call in mock().write.call_args_list)
+    written_content = "".join(call[0][0] for call in mock().write.call_args_list)
     assert written_content == expected_output
 
 

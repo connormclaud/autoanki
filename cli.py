@@ -17,7 +17,6 @@ def main(pair: str, output: str):
 
     # Generate org-mode file
     generate_org_mode_file(translation_pairs, output)
-
     print(f"Org-mode file '{output}' generated successfully.")
 
 

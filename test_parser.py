@@ -27,7 +27,7 @@ def test_extra_spaces():
 
 
 def test_multiple_languages():
-    input_data = "en: table es: mesa de: der Tisch"
+    input_data = "en: table \nes: mesa \nde: der Tisch"
     expected_output = [("en", "table"), ("es", "mesa"), ("de", "der Tisch")]
     assert parse_translation_pairs(input_data) == expected_output
 

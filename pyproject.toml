@@ -19,3 +19,17 @@ dev-dependencies = [
     "pytest-cov>=5.0.0",
     "pytest>=8.3.3",
 ]
+
+[tool.pytest.ini_options]
+addopts = [
+  "--cov",
+  "--cov-report=term-missing",
+  "--cov-report=xml:coverage.xml",
+]
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+omit = [
+    'tests/*',
+]

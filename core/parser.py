@@ -18,7 +18,7 @@ def parse_translation_pairs(input_data):
     return translation_pairs
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     # Example input data
     input_data = "en: table\nde: der Tisch\nen: chair\nde: der Stuhl"
 

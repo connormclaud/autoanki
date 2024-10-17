@@ -15,9 +15,11 @@ dependencies = [
 dev-dependencies = [
     "debugpy>=1.8.7",
     "jedi-language-server>=0.41.4",
+    "mypy>=1.12.0",
     "pyright>=1.1.385",
     "pytest-cov>=5.0.0",
     "pytest>=8.3.3",
+    "ruff>=0.7.0",
 ]
 
 [tool.pytest.ini_options]
@@ -33,3 +35,6 @@ relative_files = true
 omit = [
     'tests/*',
 ]
+
+[tool.ruff]
+select = ["ALL"]

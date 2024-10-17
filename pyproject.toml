@@ -37,4 +37,4 @@ omit = [
 ]
 
 [tool.ruff]
-select = ["ALL"]
+lint.select = ["ALL"]

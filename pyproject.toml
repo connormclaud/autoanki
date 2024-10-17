@@ -8,6 +8,7 @@ dependencies = [
     "aiohttp>=3.10.10",
     "prettytable>=3.11.0",
     "prometheus-client>=0.21.0",
+    "typer>=0.12.5",
 ]
 
 [tool.uv]
@@ -15,5 +16,6 @@ dev-dependencies = [
     "debugpy>=1.8.7",
     "jedi-language-server>=0.41.4",
     "pyright>=1.1.385",
+    "pytest-cov>=5.0.0",
     "pytest>=8.3.3",
 ]

@@ -1,10 +1,11 @@
 # cli.py: Command Line Interface for generating Anki org-mode file using Typer
 import typer
-from generator import generate_org_mode_file
-from parser import parse_translation_pairs
+
+from core.generator import generate_org_mode_file
+from core.parser import parse_translation_pairs
 
 
-def main(pair: str, output: str):
+def cli_parse(pair: str, output: str):
     """
     Generate an Anki-compatible org-mode file from a translation pair.
 
@@ -21,4 +22,4 @@ def main(pair: str, output: str):
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    typer.run(cli_parse)

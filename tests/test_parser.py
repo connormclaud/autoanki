@@ -1,8 +1,6 @@
 # Unit tests for parse_translation_pairs function using pytest
 import pytest
-from parser import parse_translation_pairs
-
-
+from core.parser import parse_translation_pairs
 def test_basic_input():
     input_data = "en: table\nde: der Tisch\nen: chair\nde: der Stuhl"
     expected_output = [

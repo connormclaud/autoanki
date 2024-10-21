@@ -3,11 +3,11 @@ import asyncio
 import re
 import logging
 import time
-from prettytable import PrettyTable
 from typing import List, Union, Optional, Any
 from prometheus_client import push_to_gateway
 from wiktionary.session_manager import SessionManager
 from wiktionary.metrics import REQUEST_COUNT, REQUEST_LATENCY, registry
+from wiktionary.table_display import TranscriptionTableDisplay
 
 # Configure logging to output to stdout
 logging.basicConfig(
@@ -145,26 +145,6 @@ class IPATranscriber:
                 )  # If no IPA found, use the word itself as a placeholder
                 logging.info(f"No IPA found for word '{word}', using placeholder.")
         return " ".join(transcriptions)
-
-
-class AbstractTableDisplay:
-    def display(self, sentence: str, transcription: str) -> None:
-        table = PrettyTable()
-        table.field_names = ["Word", "IPA"]
-        self.fill_table(table, sentence, transcription)
-        self.print_table(table)
-
-    def fill_table(self, table: PrettyTable, sentence: str, transcription: str):
-        raise NotImplementedError("Subclasses should implement this!")
-
-    def print_table(self, table: PrettyTable):
-        logging.info("\n" + table.get_string())
-
-
-class TranscriptionTableDisplay(AbstractTableDisplay):
-    def fill_table(self, table: PrettyTable, sentence: str, transcription: str):
-        for word, ipa in zip(sentence.split(), transcription.split()):
-            table.add_row([word, ipa])
 
 
 if __name__ == "__main__":

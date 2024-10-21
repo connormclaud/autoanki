@@ -5,43 +5,14 @@ import logging
 import time
 from prettytable import PrettyTable
 from typing import List, Union, Optional, Any
-from prometheus_client import Counter, Histogram, push_to_gateway, CollectorRegistry
+from prometheus_client import push_to_gateway
+from wiktionary.session_manager import SessionManager
+from wiktionary.metrics import REQUEST_COUNT, REQUEST_LATENCY, registry
 
 # Configure logging to output to stdout
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-
-registry = CollectorRegistry()
-
-# Prometheus metrics
-REQUEST_COUNT = Counter(
-    "api_requests_total",
-    "Total number of API requests",
-    ["api_name"],
-    registry=registry,
-)
-REQUEST_LATENCY = Histogram(
-    "api_request_latency_seconds",
-    "Latency of API requests",
-    ["api_name"],
-    registry=registry,
-)
-
-
-class AiohttpSessionSingleton:
-    _session = None
-
-    @classmethod
-    async def get_session(cls) -> aiohttp.ClientSession:
-        if cls._session is None or cls._session.closed:
-            cls._session = aiohttp.ClientSession()
-        return cls._session
-
-    @classmethod
-    async def close_session(cls):
-        if cls._session and not cls._session.closed:
-            await cls._session.close()
 
 
 class IPAService:
@@ -74,7 +45,7 @@ class WiktionaryAPI(IPAService):
         start_time = time.time()
 
         try:
-            session = await AiohttpSessionSingleton.get_session()
+            session = await SessionManager.get_session()
             async with session.get(self.api_url, params=params) as response:
                 response.raise_for_status()
                 data = await response.json()
@@ -211,7 +182,7 @@ if __name__ == "__main__":
     display.display(sentence, transcription)
 
     # Close the aiohttp session
-    asyncio.run(AiohttpSessionSingleton.close_session())
+    asyncio.run(SessionManager.close_session())
 
     # Push the metrics to the Pushgateway
     push_to_gateway("localhost:9091", job="python_app", registry=registry)

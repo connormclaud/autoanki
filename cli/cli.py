@@ -4,7 +4,10 @@ import typer
 from core.generator import generate_org_mode_file
 from core.parser import parse_translation_pairs
 
+app = typer.Typer()
 
+
+@app.command()
 def cli_parse(pair: str, output: str):
     """
     Generate an Anki-compatible org-mode file from a translation pair.
@@ -21,5 +24,5 @@ def cli_parse(pair: str, output: str):
     print(f"Org-mode file '{output}' generated successfully.")
 
 
-if __name__ == "__main__":
-    typer.run(cli_parse)
+if __name__ == "__main__":  # pragma: nocover
+    app()

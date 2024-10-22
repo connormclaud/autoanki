@@ -1,11 +1,6 @@
 import asyncio
 import logging
-from typing import List, Union
-from prometheus_client import push_to_gateway
-from wiktionary.ipa_service import IPAService, WiktionaryAPI
-from wiktionary.session_manager import SessionManager
-from wiktionary.metrics import registry
-from wiktionary.table_display import TranscriptionTableDisplay
+from wiktionary.ipa_service import IPAService
 
 
 # Configure logging to output to stdout
@@ -19,7 +14,7 @@ class FetchIPACommand:
         self.api = api
         self.word = word
 
-    async def execute(self) -> Union[List[str], str]:
+    async def execute(self) -> list[str] | str:
         return await self.api.fetch_ipa(self.word)
 
 
@@ -56,24 +51,3 @@ class IPATranscriber:
                 )  # If no IPA found, use the word itself as a placeholder
                 logging.info(f"No IPA found for word '{word}', using placeholder.")
         return " ".join(transcriptions)
-
-
-if __name__ == "__main__":
-    # Example sentence transcription
-    sentence = (
-        "nach der Sache mit dem Buch dachte ich es wäre doch möglich dass auch durch das Lachen "
-        "manchmal mehr erreicht wird als durch das ständige Suchen nach einfachen Antworten doch"
-    )
-
-    # Run the transcription and display the results
-    ipa_service = WiktionaryAPI(language="de")
-    transcriber = IPATranscriber(ipa_service=ipa_service)
-    transcription = asyncio.run(transcriber.transcribe_sentence(sentence))
-    display = TranscriptionTableDisplay()
-    display.display(sentence, transcription)
-
-    # Close the aiohttp session
-    asyncio.run(SessionManager.close_session())
-
-    # Push the metrics to the Pushgateway
-    push_to_gateway("localhost:9091", job="python_app", registry=registry)

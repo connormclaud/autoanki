@@ -60,8 +60,6 @@ class WiktionaryAPI(IPAService):
             REQUEST_LATENCY.labels(api_name="wiktionary").observe(duration)
 
 
-
-
 class FetchIPACommand:
     def __init__(self, api: IPAService, word: str):
         self.api = api

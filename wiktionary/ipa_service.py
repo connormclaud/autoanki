@@ -12,9 +12,11 @@ logging.basicConfig(
 )
 
 
+
 class IPAService:
     async def fetch_ipa(self, word: str) -> list[str] | str:
         raise NotImplementedError("Subclasses should implement this!")
+
 
 
 class WiktionaryAPI(IPAService):

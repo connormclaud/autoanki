@@ -14,6 +14,7 @@ class AiohttpSessionSingleton:
     async def close_session(cls):
         if cls._session and not cls._session.closed:
             await cls._session.close()
+            cls._session = None
 
 
 SessionManager = AiohttpSessionSingleton

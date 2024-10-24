@@ -1,13 +1,14 @@
-import pytest
 from unittest.mock import AsyncMock, patch
-from wiktionary.session_manager import AiohttpSessionSingleton
+
 import aiohttp
+import pytest
+
+from wiktionary.session_manager import AiohttpSessionSingleton
+
 
 @pytest.mark.asyncio
-async def test_close_session_when_no_session_exists():
-    """
-    Test the close_session method when no session has been created.
-    """
+async def test_close_session_when_no_session_exists() -> None:
+    """Test the close_session method when no session has been created."""
     # Ensure there is no existing session
     AiohttpSessionSingleton._session = None
 
@@ -20,10 +21,8 @@ async def test_close_session_when_no_session_exists():
 
 
 @pytest.mark.asyncio
-async def test_close_session_when_session_exists():
-    """
-    Test the close_session method when a session has been created.
-    """
+async def test_close_session_when_session_exists() -> None:
+    """Test the close_session method when a session has been created."""
     # Create a mocked session
     mock_session = AsyncMock(spec=aiohttp.ClientSession)
     mock_session.closed = False

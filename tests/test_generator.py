@@ -1,10 +1,12 @@
 # Unit test for generate_org_mode_file function using pytest and mocking
-import pytest
 from unittest.mock import mock_open, patch
+
+import pytest
+
 from core.generator import generate_org_mode_file
 
 
-def test_generate_org_mode_file():
+def test_generate_org_mode_file() -> None:
     translation_pairs = [
         ("en", "table"),
         ("de", "der Tisch"),

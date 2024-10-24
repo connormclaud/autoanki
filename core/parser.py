@@ -3,12 +3,14 @@
 
 
 def parse_translation_pairs(input_data):
-    """
-    Parses input data into translation pairs.
+    """Parses input data into translation pairs.
+
     Args:
         input_data (str): Input data containing translation pairs, formatted as "en: table de: der Tisch".
+
     Returns:
         list of tuples: List containing language keys and translations, e.g., [("en", "table"), ("de", "der Tisch")]
+
     """
     translation_pairs = []
     pairs = input_data.split("\n") if input_data else []
@@ -24,4 +26,3 @@ if __name__ == "__main__":  # pragma: no cover
 
     # Parse translation pairs
     translation_pairs = parse_translation_pairs(input_data)
-    print(translation_pairs)

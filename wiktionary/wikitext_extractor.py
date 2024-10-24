@@ -1,10 +1,10 @@
-from typing import Any
-import re
 import logging
-
+import re
+from typing import Any
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
 
@@ -15,12 +15,15 @@ class WikitextDataExtractor:
         if wikitext:
             # Extract IPA in the immediate vicinity of the 'Aussprache' section
             aussprache_section = re.search(
-                r"\{\{Aussprache\}\}(.+?)(\n\{|$)", wikitext, re.DOTALL
+                r"\{\{Aussprache\}\}(.+?)(\n\{|$)",
+                wikitext,
+                re.DOTALL,
             )
             if aussprache_section:
                 section_text = aussprache_section.group(1)
                 ipa_matches = re.findall(
-                    r"\{\{IPA\|([^}]+)\}\}|\{\{Lautschrift\|([^}]+)\}\}", section_text
+                    r"\{\{IPA\|([^}]+)\}\}|\{\{Lautschrift\|([^}]+)\}\}",
+                    section_text,
                 )
                 ipa_matches = [
                     match for group in ipa_matches for match in group if match
@@ -33,8 +36,7 @@ class WikitextDataExtractor:
 
     @staticmethod
     def get_nested(data: dict, keys: list[str], default: Any = "") -> Any:
-        """
-        Safely retrieves a nested value from a dictionary.
+        """Safely retrieves a nested value from a dictionary.
 
         Args:
             data (dict): The dictionary to retrieve the value from.
@@ -43,6 +45,7 @@ class WikitextDataExtractor:
 
         Returns:
             Any: The value found at the nested path or the default value.
+
         """
         for key in keys:
             data = data.get(key, default)

@@ -1,7 +1,6 @@
 import pytest
 from wiktionary.ipa_service import WiktionaryAPI
 from wiktionary.transcriber import IPATranscriber
-from wiktionary.table_display import TranscriptionTableDisplay
 from wiktionary.session_manager import SessionManager
 
 

@@ -1,3 +1,5 @@
+"""Extract information from Wiki text sources."""
+
 import logging
 import re
 from typing import Any
@@ -9,8 +11,14 @@ logging.basicConfig(
 
 
 class WikitextDataExtractor:
+    """Class to extract data from Wiki text."""
+
     @staticmethod
-    def extract_ipa(data: dict, word: str) -> list[str] | str:
+    def extract_ipa(data: dict[str, Any], word: str) -> list[str] | str:
+        """Extract IPA.
+
+        (International Phonetic Alphabet) transcription from Wiki text.
+        """
         wikitext = WikitextDataExtractor.get_nested(data, ["parse", "wikitext", "*"])
         if wikitext:
             # Extract IPA in the immediate vicinity of the 'Aussprache' section
@@ -29,13 +37,15 @@ class WikitextDataExtractor:
                     match for group in ipa_matches for match in group if match
                 ]  # Flatten matches
                 if ipa_matches:
-                    logging.info(f"Found IPA matches for word='{word}': {ipa_matches}")
+                    logging.info(
+                        "Found IPA matches for word='%s': %s", word, ipa_matches
+                    )
                     return ipa_matches
-        logging.info(f"No IPA found in Aussprache section for word='{word}'")
+        logging.info("No IPA found in Aussprache section for word='%s'", word)
         return "No IPA found in Aussprache section."
 
     @staticmethod
-    def get_nested(data: dict, keys: list[str], default: Any = "") -> Any:
+    def get_nested(data: dict, keys: list[str], default: str | None = "") -> str | None:
         """Safely retrieves a nested value from a dictionary.
 
         Args:
@@ -48,8 +58,9 @@ class WikitextDataExtractor:
 
         """
         for key in keys:
-            data = data.get(key, default)
+            if data and isinstance(data, dict):
+                data = data.get(key, default)
             if data == default:
-                logging.debug(f"Key '{key}' not found, returning default value.")
+                logging.debug("Key '%s' not found, returning default value.", key)
                 return default
-        return data
+        return str(data) if data is not None else None

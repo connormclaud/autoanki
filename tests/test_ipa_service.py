@@ -21,10 +21,13 @@ async def test_ipa_service_fetch_ipa_not_implemented() -> None:
 
 
 @pytest.mark.asyncio
-async def test_wiktionary_api_client_error_with_mocked_session_manager(ipa_service) -> None:
+async def test_wiktionary_api_client_error_with_mocked_session_manager(
+    ipa_service,
+) -> None:
     """Unit test to cover the aiohttp.ClientError handling in WiktionaryAPI."""
     with patch(
-        "wiktionary.ipa_service.SessionManager", new_callable=AsyncMock,
+        "wiktionary.ipa_service.SessionManager",
+        new_callable=AsyncMock,
     ) as MockSessionManager:
         # Create a mocked session
         mock_session = MagicMock()

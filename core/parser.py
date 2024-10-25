@@ -1,15 +1,20 @@
-# Milestone 1: Core Parsing and File Generation Module
-# This script allows users to input translation pairs and generates an org-mode file for Anki
+"""Core Parsing and File Generation Module.
+
+This script allows users to input translation pairs
+and generates an org-mode file for Anki
+"""
 
 
-def parse_translation_pairs(input_data):
-    """Parses input data into translation pairs.
+def parse_translation_pairs(input_data: str) -> list[tuple[str, str]]:
+    """Parse input data into translation pairs.
 
     Args:
-        input_data (str): Input data containing translation pairs, formatted as "en: table de: der Tisch".
+        input_data (str): Input data containing translation pairs,
+        formatted as "en: table de: der Tisch".
 
     Returns:
-        list of tuples: List containing language keys and translations, e.g., [("en", "table"), ("de", "der Tisch")]
+        list of tuples: List containing language keys and translations,
+        e.g., [("en", "table"), ("de", "der Tisch")]
 
     """
     translation_pairs = []

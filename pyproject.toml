@@ -41,3 +41,10 @@ omit = [
 
 [tool.ruff]
 lint.select = ["ALL"]
+lint.ignore = [
+  "D203",  # Ignore `one-blank-line-before-class` to prevent conflicts with D211
+  "D213",  # Ignore `multi-line-summary-second-line` to prevent conflict with D212
+  "COM812",  # Disable as it may cause conflicts with formatters
+  "ISC001",  # Disable as it may cause conflicts with formatters
+  "I001",  # Conflicts with how ruff sort imports
+]

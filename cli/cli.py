@@ -1,4 +1,8 @@
-# cli.py: Command Line Interface for generating Anki org-mode file using Typer
+"""Simple cli.
+
+Command Line Interface for generating Anki org-mode file using Typer
+"""
+
 import typer
 
 from core.generator import generate_org_mode_file

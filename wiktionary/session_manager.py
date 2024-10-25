@@ -1,3 +1,5 @@
+"""Singleton for managing a reusable aiohttp ClientSession."""
+
 import aiohttp
 
 

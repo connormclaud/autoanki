@@ -1,3 +1,5 @@
+"""List of useful metrics."""
+
 from prometheus_client import CollectorRegistry, Counter, Histogram
 
 registry = CollectorRegistry()

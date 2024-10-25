@@ -1,3 +1,5 @@
+"""Transcribe a given sentence into IPA."""
+
 import asyncio
 import logging
 
@@ -35,7 +37,7 @@ class IPATranscriber:
 
         """
         words = sentence.split()
-        logging.info(f"Transcribing sentence: '{sentence}'")
+        logging.info("Transcribing sentence: '%s'", sentence)
         commands = [FetchIPACommand(self.ipa_service, word) for word in words]
         tasks = [command.execute() for command in commands]
         results = await asyncio.gather(*tasks)
@@ -45,10 +47,10 @@ class IPATranscriber:
                 transcriptions.append(
                     ipa[0],
                 )  # Use the first IPA transcription if available
-                logging.info(f"Word '{word}' transcribed as '{ipa[0]}'")
+                logging.info("Word '%s' transcribed as '%s'", word, ipa[0])
             else:
                 transcriptions.append(
                     f"[{word}]",
                 )  # If no IPA found, use the word itself as a placeholder
-                logging.info(f"No IPA found for word '{word}', using placeholder.")
+                logging.info("No IPA found for word '%s', using placeholder.", word)
         return " ".join(transcriptions)

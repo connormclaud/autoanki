@@ -1,5 +1,5 @@
 # Unit test for generate_org_mode_file function using pytest and mocking
-from unittest.mock import mock_open, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -44,13 +44,13 @@ der Stuhl
 
 """.lstrip("\n")
 
-    mock = mock_open()
-    with patch("builtins.open", mock):
+    with patch("core.generator.pathlib.Path.open", autospec=True) as mock_open:
+        mock_file = MagicMock()
+        mock_open.return_value.__enter__.return_value = mock_file
         generate_org_mode_file(translation_pairs, "output.org")
 
-    # Assert that the mock file was written with the expected content
-    mock().write.assert_called()
-    written_content = "".join(call[0][0] for call in mock().write.call_args_list)
+    # Assert that the mock file was written with the expected
+    written_content = "".join(call[0][0] for call in mock_file.write.call_args_list)
     assert written_content == expected_output
 
 

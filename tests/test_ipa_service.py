@@ -3,28 +3,19 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import aiohttp
 import pytest
 
-from wiktionary.ipa_service import IPAService, WiktionaryAPI
+from wiktionary.ipa_service import WiktionaryIPA
 
 
 @pytest.fixture
 async def ipa_service():
-    return WiktionaryAPI()
-
-
-async def test_ipa_service_fetch_ipa_not_implemented() -> None:
-    """Unit test to verify that the fetch_ipa method raises NotImplementedError in the abstract IPAService class."""
-    ipa_service = IPAService()
-
-    with pytest.raises(NotImplementedError, match="Subclasses should implement this!"):
-        # IPAService is an abstract class
-        await ipa_service.fetch_ipa("test")
+    return WiktionaryIPA()
 
 
 @pytest.mark.asyncio
 async def test_wiktionary_api_client_error_with_mocked_session_manager(
     ipa_service,
 ) -> None:
-    """Unit test to cover the aiohttp.ClientError handling in WiktionaryAPI."""
+    """Unit test to cover the aiohttp.ClientError handling in WiktionaryIPA."""
     with patch(
         "wiktionary.ipa_service.SessionManager",
         new_callable=AsyncMock,

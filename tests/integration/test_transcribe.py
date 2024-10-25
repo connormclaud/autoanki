@@ -1,13 +1,13 @@
 import pytest
 
-from wiktionary.ipa_service import WiktionaryAPI
+from wiktionary.ipa_service import WiktionaryIPA
 from wiktionary.session_manager import SessionManager
 from wiktionary.transcriber import IPATranscriber
 
 
 @pytest.mark.asyncio
 async def test_transcribe_sentence_integration() -> None:
-    """Integration test for transcribing a sentence using WiktionaryAPI and displaying the result."""
+    """Integration test for transcribing a sentence using WiktionaryIPA and displaying the result."""
     # Example sentence transcription
     sentence = (
         "nach der Sache mit dem Buchp dachte ich es wäre doch möglich dass auch durch das Lachen "
@@ -15,7 +15,7 @@ async def test_transcribe_sentence_integration() -> None:
     )
 
     # Create instances for the test
-    ipa_service = WiktionaryAPI(language="de")
+    ipa_service = WiktionaryIPA(language="de")
     transcriber = IPATranscriber(ipa_service=ipa_service)
 
     # Run transcription

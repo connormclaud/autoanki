@@ -55,4 +55,4 @@ per-file-ignores = { "test_*.py" = [
   "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
   "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
   "PLR2004", # Magic value used in comparison, 
-] }
+], "conftest.py" = ["INP001",] }

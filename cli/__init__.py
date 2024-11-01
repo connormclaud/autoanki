@@ -1,1 +1,1 @@
-from .cli import cli_parse
+"""CLI to interact with a package."""

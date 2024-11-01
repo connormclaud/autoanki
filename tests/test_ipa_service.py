@@ -1,3 +1,5 @@
+"""Unit tests for wiktionary.ipa_service."""
+
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import aiohttp
@@ -7,23 +9,24 @@ from wiktionary.ipa_service import WiktionaryIPA
 
 
 @pytest.fixture
-async def ipa_service():
+async def ipa_service() -> WiktionaryIPA:
+    """Instance of WiktionaryIPA."""
     return WiktionaryIPA()
 
 
 @pytest.mark.asyncio
 async def test_wiktionary_api_client_error_with_mocked_session_manager(
-    ipa_service,
+    ipa_service: WiktionaryIPA,
 ) -> None:
     """Unit test to cover the aiohttp.ClientError handling in WiktionaryIPA."""
     with patch(
         "wiktionary.ipa_service.SessionManager",
         new_callable=AsyncMock,
-    ) as MockSessionManager:
+    ) as mock_session_manager:
         # Create a mocked session
         mock_session = MagicMock()
 
-        MockSessionManager.get_session.return_value = mock_session
+        mock_session_manager.get_session.return_value = mock_session
         # Simulate a ClientError when calling the get method
         mock_response = mock_session.get.return_value
         mock_response.__aenter__.return_value = mock_response

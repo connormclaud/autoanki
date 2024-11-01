@@ -18,5 +18,10 @@ class AiohttpSessionSingleton:
             await cls._session.close()
             cls._session = None
 
+    @classmethod
+    def has_session(cls) -> bool:
+        """Return True if there is an existing session, otherwise False."""
+        return cls._session is not None
+
 
 SessionManager = AiohttpSessionSingleton

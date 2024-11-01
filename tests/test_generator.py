@@ -1,4 +1,5 @@
-# Unit test for generate_org_mode_file function using pytest and mocking
+"""Unit tests for core.generator module."""
+
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -7,6 +8,7 @@ from core.generator import generate_org_mode_file
 
 
 def test_generate_org_mode_file() -> None:
+    """Tests generate_org_mode_file function."""
     translation_pairs = [
         ("en", "table"),
         ("de", "der Tisch"),

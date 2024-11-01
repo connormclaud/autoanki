@@ -13,16 +13,26 @@ logging.basicConfig(
 
 
 class FetchIPACommand:
+    """Fetching of IPA transcriptions.
+
+    Command pattern for getting IPA using an IPA service.
+    """
+
     def __init__(self, api: IPAService, word: str) -> None:
+        """Initialize command with specified IPA service and word."""
         self.api = api
         self.word = word
 
     async def execute(self) -> list[str] | str:
+        """Delayed execution."""
         return await self.api.fetch_ipa(self.word)
 
 
 class IPATranscriber:
+    """Transcribes entire sentences into IPA using an IPA service."""
+
     def __init__(self, ipa_service: IPAService) -> None:
+        """Initialize Transcriber with an IPA service."""
         self.ipa_service = ipa_service
         logging.info("Initialized IPATranscriber with provided IPA service")
 
